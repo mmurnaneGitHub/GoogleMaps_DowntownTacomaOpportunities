@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Downtown Tacoma Development Opportunities</title>
+		<link rel="shortcut icon" href="shortcut.ico">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/image/resources/Lightbox.css">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="css/default.css">
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <!--Dojo-->
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+        
+    <!-- Google Maps API  - use latest version-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPoaOE5Rhl1zF-w8kXaJ0taaDSvdi1L44"></script>
+     
+    <!--Additional -->
+    <!--<script type="text/javascript" src="js/Downtown.js"></script>-->
+    <script type="text/javascript" src="js/Downtown_org.js"></script>
+</head>
+
+<body class="tundra"> 
+
+<div data-role="page" id="pageone" data-theme="a">
+
+    <!--Header-->
+    <div data-role="header" data-theme="b">
+    <h1>DOWNTOWN TACOMA OPPORTUNITIES</h1>
+        <button class="show" data-icon="home" data-iconpos="notext">POI Toggle</button>
+        <a href="#menuPanel" data-icon="bars" data-iconpos="notext">Menu</a>
+    </div> 
+
+    <!--Content-->
+    <div id="theMapHolder">
+      <!-- Map Panel -->
+      <div id="theMap">
+          <div id="map_canvas"><!--MAP--></div>
+      </div>   
+
+      <!-- POI panel -->
+      <div id="POI">
+          <div id="headerPOI">
+            <ul data-role="listview">
+              <li data-icon="arrow-r"><a href="#" class="show">Downtown Tacoma Developments</a></li>
+            </ul>
+          </div>
+    
+              <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter:false, region:'right'" id="rightPane">
+
+
+                <div dojoType="dijit/layout/TabContainer" attachParent="true" tabPosition="top" tabStrip="true" id="rightTabs">
+
+                  <!--Commercial ................................................. -->
+                  <div dojoType="dijit/layout/ContentPane" title="New <img src='images/mapIcons/C.png'>" attachParent="true" id="NewSitesTab">
+                   <div id="Commercial1"><!--Opportunity--></div>
+                  </div>
+
+                  <!--Residential ................................................. -->
+                  <div dojoType="dijit/layout/ContentPane" title="Existing <img src='images/mapIcons/M.png'>"  attachParent="true" id="ExistingSitesTab">
+                    <div id="Residential1"><!--Key Buildings--></div>
+                  </div>
+        
+                  <!--Mixed-Use ................................................. -->
+                  <div dojoType="dijit/layout/ContentPane" title="Amenities <img src='images/mapIcons/Y.png'>" attachParent="true" id="AmenitiesTab">
+                   <div id="MixedUse1"><!--Amenity--></div>
+                  </div>
+
+                  <!--Arts & Culture ................................................. -->
+                  <div dojoType="dijit/layout/ContentPane" title="Culture <img src='images/mapIcons/G.png'>" attachParent="true" id="CultureTab">
+                   <div id="Amenities1"><!--Culture--></div>
+                  </div>
+        
+                </div> <!--rightTabs-->
+        
+              </div> <!--rightPane-->
+
+
+      </div>  <!--POI-->
+      
+    </div><!-- Content holder -->
+  
+  <div data-role="panel"  data-position="right" id="menuPanel" data-display="overlay" data-theme="a"> 
+
+    <ul data-role="listview">
+      <li data-icon="arrow-r"><a href="#" data-rel="close">Close Menu</a></li>
+      <li> <a href="" class="show_NewSitesTab" data-rel="close"><img src="images/mapIcons/C.png" class="ui-li-icon ui-corner-none"> New Sites </a> </li>
+      <li> <a href="" class="show_ExistingSitesTab" data-rel="close"><img src="images/mapIcons/M.png" class="ui-li-icon ui-corner-none"> Existing Sites </a> </li>
+      <li> <a href="" class="show_AmenitiesTab" data-rel="close"><img src="images/mapIcons/Y.png" class="ui-li-icon ui-corner-none"> Amenities </a> </li>
+      <li> <a href="" class="show_CultureTab" data-rel="close"><img src="images/mapIcons/G.png" class="ui-li-icon ui-corner-none"> Culture </a> </li>
+      <li data-icon="info"> <a href="#About" data-rel="popup" data-position-to="window">About</a> </li>
+      <li data-icon="info"> <a href="#Help" data-rel="popup" data-position-to="window">Help</a> </li>
+    </ul>
+
+        <!--CITY LOGO AND LINK-->
+        <div id="logoHolder">
+          <a href="https://www.cityoftacoma.org/" target="_blank">
+            <img style="-webkit-user-select: none" src="data:image/jpeg;base64,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" width="40" height="58" title="City of Tacoma's home page" border="0"> 
+          </a>
+        </div>
+    
+        <!--About popup-->
+        <div data-role="popup" id="About" class="ui-content" style="max-width:350px">
+          <div data-role="header"><h1>DOWNTOWN TACOMA OPPORTUNITIES</h1></div>
+
+          <a href="" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+          
+          <div><p>Welcome! This site by the City of Tacoma Community & Economic Development Department provides developers information on new site opportunities, along with details on existing developments, amenities, and culture sites that make downtown Tacoma attractive.</p></div>
+
+          <div><p>Please visit our <a href="https://www.cityoftacoma.org/cms/One.aspx?portalId=169&pageId=12095" target = "_blank">website</a> to find out more about all the services we provide.</p></div>
+
+          <div>
+            <p>
+            <a href="https://www.cityoftacoma.org/" target="_blank">
+              <img style="-webkit-user-select: none" src="data:image/jpeg;base64,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" width="40" height="58" title="City of Tacoma's home page" border="0"> 
+            </a>
+            </p>
+          </div>
+
+        </div>
+
+        <!--Help popup-->
+        <div data-role="popup" id="Help" class="ui-content">
+         <div data-role="header" class="ui-corner-top"><h1>HELP</h1></div>
+          <a href="" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+
+           <div>
+           <div class="helpButton"><img src="images/locate.png" class="helpButtonImg"></div>
+            <p><h3>Find my location:</h3> Zoom to your current location. Device location tracking must be turned on.<br>&nbsp;</p> 
+           </div>
+           <div style='clear:both;'><hr color='#ACB1DB'></div>
+           
+           <div class="helpButton"><img src="images/homeWhite2.png" class="helpButtonImg"></div>
+            <p><h3>Zoom to all opportunities:</h3> Zoom to all downtown points of interest.  <br>&nbsp;</p>
+           <div style='clear:both;'><hr color='#ACB1DB'></div>
+           
+           <div class="helpButton"><img src="images/extrude20.png" class="helpButtonImg"></div>
+            <p><h3>Zoom to oblique view:</h3> Zoom to 3D photos (tilted view).  <br>&nbsp;</p>
+           <div style='clear:both;'><hr color='#ACB1DB'></div>
+           
+           <div class="helpButton"><img src="images/play.png" class="helpButtonImg"></div><div class="helpButton"><img src="images/pause.png" class="helpButtonImg"></div>
+            <p><h3>Auto rotate map:</h3> Rotate map 90 degrees at a time.  Use pause button to stop rotation. <br>&nbsp;</p>
+        </div>
+    
+  </div>
+
+</div>
+
+ 
+</body>
+
+</html>
+
