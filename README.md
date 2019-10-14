@@ -1,2 +1,6 @@
 # GoogleMaps_DowntownTacomaOpportunities
-New sites, existing sites, amenities, and culture.
+New sites, existing sites, amenities, and culture in downtown Tacoma.
+
+ARCHIVED FOR NOW (URL still works). Keep for revival or example of jQuery panels. jQuery must be fully loaded before running other javascript.
+
+Site: https://wspdsmap.cityoftacoma.org/website/Downtown/Downtown.htm
